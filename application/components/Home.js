@@ -1,11 +1,13 @@
 import React from 'react';
+import HomeCard from './HomeCard';
 
 class Home extends React.Component {
-  render(){
+
+  render() {
     return(
-      
-    );
+      <HomeCard />
+    )
   }
-}
+};
 
 export default Home;
