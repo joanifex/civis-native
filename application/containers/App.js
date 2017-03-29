@@ -28,7 +28,8 @@ import { Provider } from 'react-redux'
 import store, { history } from '../store';
 
 // Components
-import Home from '../components/Home';
+import AddressForm from '../components/AddressForm';
+import RepIndex from '../components/RepIndex';
 
 class App extends React.Component {
   render() {
@@ -38,29 +39,21 @@ class App extends React.Component {
           <Container>
             <Header>
               <Left>
-                <Button transparent>
-                  <Icon name="menu" />
-                </Button>
               </Left>
               <Body>
-                <Title>Civis</Title>
+                <Title>CIVIS</Title>
               </Body>
               <Right />
             </Header>
             <Content padder>
-              <Body>
-                <Home />
-              </Body>
               <View>
                 <Switch>
+                  <Route exact path="/" component={AddressForm}/>
+                  <Route exact path="reps" component={RepIndex}/>
+                  {/* <Route exact path="reps/:id" component={Rep}/> */}
                 </Switch>
               </View>
             </Content>
-
-            <Footer>
-              <FooterTab>
-              </FooterTab>
-            </Footer>
           </Container>
         </NativeRouter>
       </Provider>
