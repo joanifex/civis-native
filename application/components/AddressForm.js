@@ -1,5 +1,4 @@
 import React from 'react';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { updateReps } from '../actions/reps';
 import { Text, View } from 'react-native';
@@ -34,6 +33,7 @@ class AddressForm extends React.Component {
         this.props.history.push('/reps')
       })
       .catch( err => {
+        debugger
         let message = "Could not find address. Try another one."
         console.log(message);
       })

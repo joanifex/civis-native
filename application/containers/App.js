@@ -25,6 +25,7 @@ import { Provider } from 'react-redux'
 import store, { history } from '../store';
 
 // Components
+import HeaderBody from '../components/HeaderBody';
 import AddressForm from '../components/AddressForm';
 import RepIndex from '../components/RepIndex';
 import Rep from '../components/Rep';
@@ -35,19 +36,12 @@ class App extends React.Component {
       <Provider store={store}>
         <NativeRouter>
           <Container>
-            <Header>
-              <Left>
-              </Left>
-              <Body>
-                <Title>CIVIS</Title>
-              </Body>
-              <Right />
-            </Header>
+            <HeaderBody />
             <Content padder>
               <View>
                 <Switch>
                   <Route exact path="/" component={AddressForm}/>
-                  <Route path="/reps" component={RepIndex}/>
+                  <Route exact path="/reps" component={RepIndex}/>
                   <Route path="/reps/:id" component={Rep}/>
                 </Switch>
               </View>
