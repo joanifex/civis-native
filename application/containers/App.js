@@ -5,15 +5,12 @@ import {
   Container,
   Content,
   Header,
-  Footer,
-  FooterTab,
-  Title,
-  H1,
   Button,
   Left,
   Right,
   Body,
-  Icon
+  Icon,
+  Title
 } from 'native-base';
 
 import { Text, View, StyleSheet } from 'react-native';
@@ -30,6 +27,7 @@ import store, { history } from '../store';
 // Components
 import AddressForm from '../components/AddressForm';
 import RepIndex from '../components/RepIndex';
+import Rep from '../components/Rep';
 
 class App extends React.Component {
   render() {
@@ -49,8 +47,8 @@ class App extends React.Component {
               <View>
                 <Switch>
                   <Route exact path="/" component={AddressForm}/>
-                  <Route exact path="reps" component={RepIndex}/>
-                  {/* <Route exact path="reps/:id" component={Rep}/> */}
+                  <Route path="/reps" component={RepIndex}/>
+                  <Route path="/reps/:id" component={Rep}/>
                 </Switch>
               </View>
             </Content>

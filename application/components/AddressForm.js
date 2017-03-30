@@ -26,12 +26,12 @@ class AddressForm extends React.Component {
     }
   }
 
-  findReps = ({ address = "", coords = {} }) => {
+  findReps = ({ address = "", coords = "" }) => {
     fetch(`http://localhost:3000/api/reps?address=${address}&coords=${coords}`)
       .then( res => res.json() )
       .then( data => {
         this.props.dispatch(updateReps(data.reps));
-        this.props.history.push('reps')
+        this.props.history.push('/reps')
       })
       .catch( err => {
         let message = "Could not find address. Try another one."
