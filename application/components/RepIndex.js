@@ -7,6 +7,8 @@ import { Content, Left, Body, Right, ListItem, Thumbnail, Icon } from 'native-ba
 
 class RepIndex extends React.Component {
 
+  // Add a Header: "Your Reps"
+  // Change View Button to be Icon, and / or entire list is clickable
   displayReps = () => {
     const { reps } = this.props
     return reps.map( rep => {

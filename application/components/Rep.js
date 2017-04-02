@@ -2,9 +2,13 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Text, View } from 'react-native';
 
+// Picture
+// Header with FullName
+// Card Image: Rep Header, Rep Info, Rep Contact
+// Card Showcase: Articles
 
 class Rep extends React.Component {
-  render() {
+  render() {  
     return(
       <Text>{this.props.rep.full_name}</Text>
     );
