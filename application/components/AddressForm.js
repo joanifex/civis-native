@@ -26,7 +26,7 @@ class AddressForm extends React.Component {
   }
 
   findReps = ({ address = "", coords = "" }) => {
-    fetch(`http://localhost:3000/api/reps?address=${address}&coords=${coords}`)
+    fetch(`https://civis.herokuapp.com/api/reps?address=${address}&coords=${coords}`)
       .then( res => res.json() )
       .then( data => {
         this.props.dispatch(updateReps(data.reps));

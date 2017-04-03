@@ -14,7 +14,7 @@ class RepIndex extends React.Component {
   displayReps = () => {
     const { reps } = this.props
     return reps.map( rep => {
-      const profile_url = rep.profile_url.replace("http", "http")
+      const profile_url = rep.profile_url.replace("http", "https")
       return(
         <ListItem avatar key={rep.id} onPress={ () => this.linkToRep(rep.id) }>
           <Thumbnail source={{uri: profile_url}} />
