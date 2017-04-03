@@ -2,10 +2,23 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateReps } from '../actions/reps';
 import { Text, View } from 'react-native';
-import { Form, Item, Input, Button, Card, CardItem, Body, InputGroup, Icon, } from 'native-base';
+import {
+  Form,
+  Item,
+  Input,
+  Button,
+  Card,
+  CardItem,
+  Body,
+  InputGroup,
+  Icon,
+  Right,
+  Spinner,
+  Toast,
+} from 'native-base';
 
 class AddressForm extends React.Component {
-  state = { address: "" }
+  state = { address: "", loading: false }
 
   handleSubmit = () => {
     let { address } = this.state;
@@ -26,7 +39,12 @@ class AddressForm extends React.Component {
   }
 
   findReps = ({ address = "", coords = "" }) => {
-    fetch(`https://civis.herokuapp.com/api/reps?address=${address}&coords=${coords}`)
+    this.setState({ loading: true });
+    let coord_params = ""
+    if (typeof coords != "string")
+      coord_params = `coords%5Blat%5D=${coords.lat}&coords%5Blng%5D=${coords.lng}`;
+    // fetch(`https://civis.herokuapp.com/api/reps?address=${address}&${coord_params}`)
+    fetch(`http:/localhost:3000/api/reps?address=${address}&${coord_params}`)
       .then( res => res.json() )
       .then( data => {
         this.props.dispatch(updateReps(data.reps));
@@ -34,8 +52,13 @@ class AddressForm extends React.Component {
       })
       .catch( err => {
         // TODO: Feedback. Syntax Error?
-        let message = "Could not find address. Try another one."
-        console.log(message);
+        this.setState({ loading: false });
+        const message = "Could not find address. Try again.";
+        Toast.show({
+          text: `${message}`,
+          position: 'bottom',
+          buttonText: 'Okay'
+        });
       })
   }
 
@@ -44,37 +67,44 @@ class AddressForm extends React.Component {
     this.setState({ address: value });
   }
 
+  displayLoading() {
+    return(
+      <Spinner color='blue' />
+    );
+  }
+
   render(){
     return(
       <View>
-        <Card>
-          <CardItem>
-            <Body>
-              <Text>
+        { this.state.loading ? this.displayLoading() :
+          <Card>
+            <CardItem>
+              <Body>
+                <Text>
                   Find your legislators by zipcode or address
-              </Text>
-              <InputGroup>
-                <Icon name="ios-search" />
-                <Input
-                  style={ {height: 40} }
-                  placeholder="Address or Zip Code"
-                  autoFocus={true}
-                  value={this.state.address}
-                  onChangeText={ address => this.setState({ address }) }
-                  onSubmitEditing={ this.handleSubmit }
-                  blurOnSubmit={false}
-                />
-              </InputGroup>
-              <Button onPress={ this.handleSubmit }>
-                  <Text>Submit</Text>
-              </Button>
-              <Button transparent onPress={ this.geolocate }>
+                </Text>
+                  <InputGroup>
+                    <Icon name="ios-search" />
+                    <Input
+                      style={ {height: 40} }
+                      placeholder="Address or Zip Code"
+                      autoFocus={true}
+                      value={this.state.address}
+                      onChangeText={ address => this.setState({ address }) }
+                      onSubmitEditing={ this.handleSubmit }
+                      blurOnSubmit={false}
+                    />
+                  </InputGroup>
+              </Body>
+            </CardItem>
+            <CardItem>
+              <Button iconRight light onPress={ this.geolocate }>
+                <Icon name='navigate' />
                 <Text>Find My Location</Text>
               </Button>
-              {/* TODO: Geolocation */}
-            </Body>
-          </CardItem>
-        </Card>
+            </CardItem>
+          </Card>
+        }
       </View>
     );
   }

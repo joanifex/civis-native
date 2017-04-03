@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-native';
 import { Text, View } from 'react-native';
-import { Content, Left, Body, Right, ListItem, Thumbnail, Icon } from 'native-base';
+import { Content, Left, Body, Right, List, ListItem, Thumbnail, Icon, Card, CardItem } from 'native-base';
 import { Redirect } from 'react-router-native';
 
 class RepIndex extends React.Component {
@@ -14,10 +14,12 @@ class RepIndex extends React.Component {
   displayReps = () => {
     const { reps } = this.props
     return reps.map( rep => {
-      const profile_url = rep.profile_url.replace("http", "https")
       return(
-        <ListItem avatar key={rep.id} onPress={ () => this.linkToRep(rep.id) }>
-          <Thumbnail source={{uri: profile_url}} />
+        <ListItem
+          avatar key={rep.id}
+          onPress={ () => this.linkToRep(rep.id) }
+        >
+          <Thumbnail source={{uri: rep.profile_large_url}} />
           <Body>
             <Text>{rep.full_name}</Text>
             <Text note>{`U.S. ${rep.title} of ${rep.state}`}</Text>
@@ -29,9 +31,9 @@ class RepIndex extends React.Component {
 
   render(){
     return(
-      <View>
+      <List>
         { this.displayReps() }
-      </View>
+      </List>
     );
   }
 }

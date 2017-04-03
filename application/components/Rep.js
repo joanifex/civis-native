@@ -25,7 +25,6 @@ class Rep extends React.Component {
 
   render() {
     const { rep } = this.props;
-    const profile_url = rep.profile_large_url.replace("http", "https")
     return(
       <ScrollView>
         <Card >
@@ -38,7 +37,7 @@ class Rep extends React.Component {
               </Body>
             </Left>
             <Right>
-              <Thumbnail source={{uri: profile_url}}/>
+              <Thumbnail source={{uri: rep.profile_large_url}}/>
             </Right>
           </CardItem>
           <CardItem>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScrollView } from 'react-native';
+import { ScrollView, Image } from 'react-native';
 import { Header, Title, Button, Left, Right, Body, Icon } from 'native-base';
 import { Link, withRouter } from 'react-router-native';
 
@@ -44,7 +44,11 @@ class HeaderBody extends React.Component {
           {this.displayBackButton()}
         </Left>
         <Body>
-          <Title>CIVIS</Title>
+          <Image
+            source={require('../images/civis.png')}
+            style={{height: 40 }}
+          />
+          {/* <Title>CIVIS</Title> */}
         </Body>
         <Right>
           {this.displayForwardButton()}
