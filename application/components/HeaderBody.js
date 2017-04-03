@@ -37,9 +37,6 @@ class HeaderBody extends React.Component {
   }
 
   // TODO: Change CIVIS to be logo svg
-  // Wrap in Card Component
-  // AddressForm is a Search Component
-  // Add "Find your legislators..." text from web app
   render(){
     return(
       <Header>

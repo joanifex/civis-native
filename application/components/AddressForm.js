@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { updateReps } from '../actions/reps';
 import { Text, View } from 'react-native';
-import { Form, Item, Input, Button } from 'native-base';
+import { Form, Item, Input, Button, Card, CardItem, Body, InputGroup, Icon, } from 'native-base';
 
 class AddressForm extends React.Component {
   state = { address: "" }
@@ -33,7 +33,7 @@ class AddressForm extends React.Component {
         this.props.history.push('/reps')
       })
       .catch( err => {
-        debugger
+        // TODO: Feedback. Syntax Error?
         let message = "Could not find address. Try another one."
         console.log(message);
       })
@@ -47,22 +47,34 @@ class AddressForm extends React.Component {
   render(){
     return(
       <View>
-        <Text>Address Form</Text>
-        <Form>
-          <Item>
-              <Input
-                style={ {height: 40} }
-                placeholder="Address or Zip Code"
-                autoFocus={true}
-                value={this.state.address}
-                onChangeText={ address => this.setState({ address }) }
-                onSubmitEditing={ this.handleSubmit }
-                blurOnSubmit={false}
-              />
-          </Item>
-        </Form>
-        {/* TODO: Geolocation */}
-        {/* <Button><Text>Geolocate</Text></Button> */}
+        <Card>
+          <CardItem>
+            <Body>
+              <Text>
+                  Find your legislators by zipcode or address
+              </Text>
+              <InputGroup>
+                <Icon name="ios-search" />
+                <Input
+                  style={ {height: 40} }
+                  placeholder="Address or Zip Code"
+                  autoFocus={true}
+                  value={this.state.address}
+                  onChangeText={ address => this.setState({ address }) }
+                  onSubmitEditing={ this.handleSubmit }
+                  blurOnSubmit={false}
+                />
+              </InputGroup>
+              <Button onPress={ this.handleSubmit }>
+                  <Text>Submit</Text>
+              </Button>
+              <Button transparent onPress={ this.geolocate }>
+                <Text>Find My Location</Text>
+              </Button>
+              {/* TODO: Geolocation */}
+            </Body>
+          </CardItem>
+        </Card>
       </View>
     );
   }
