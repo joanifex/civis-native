@@ -1,8 +1,20 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-native';
-import { Text, View } from 'react-native';
-import { Content, Left, Body, Right, List, ListItem, Thumbnail, Icon, Card, CardItem } from 'native-base';
+import { View } from 'react-native';
+import {
+  Content,
+  Body,
+  Left,
+  Right,
+  List,
+  ListItem,
+  Thumbnail,
+  Icon,
+  Card,
+  CardItem,
+  Text,
+} from 'native-base';
 import { Redirect } from 'react-router-native';
 
 class RepIndex extends React.Component {
@@ -16,7 +28,7 @@ class RepIndex extends React.Component {
     return reps.map( rep => {
       return(
         <ListItem
-          avatar key={rep.id}
+          key={rep.id}
           onPress={ () => this.linkToRep(rep.id) }
         >
           <Thumbnail source={{uri: rep.profile_large_url}} />

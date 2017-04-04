@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Image, Text, ScrollView } from 'react-native';
-import { Container, Content, Card, CardItem, Thumbnail, Button, Icon, Left, Right, Body } from 'native-base';
+import { Image, ScrollView } from 'react-native';
+import { Container, Content, Card, CardItem, Thumbnail, Button, Icon, Left, Right, Body, Text } from 'native-base';
 
 
 class Rep extends React.Component {
@@ -9,18 +9,31 @@ class Rep extends React.Component {
   displayArticles() {
     const { articles } = this.props.rep;
     return articles.map( (article, i) => {
-      const { headline, snippet } = article;
+      const { headline, snippet, web_url: webURL } = article;
       return(
-        <Card key={i}>
-          <CardItem>
+        <Card key={i} >
+          <CardItem header onPress={() => this.externalNYT(webURL)}>
+            <Icon name="paper" />
             <Text>{headline}</Text>
           </CardItem>
           <CardItem>
             <Text>...{snippet}...</Text>
           </CardItem>
-       </Card>
+        </Card>
       );
     });
+  }
+
+  externalPhone(phone) {
+    console.log(phone)
+  }
+
+  externalTwitter(url) {
+    console.log(url)
+  }
+
+  externalNYT(url) {
+    console.log(url)
   }
 
   render() {
@@ -33,7 +46,7 @@ class Rep extends React.Component {
               <Body>
                 <Text>{rep.full_name}</Text>
                 <Text note>{`U.S. ${rep.title} of ${rep.state}`}</Text>
-                <Text>Next Election: {rep.next_election}</Text>
+                <Text note>Next Election: {rep.next_election}</Text>
               </Body>
             </Left>
             <Right>
@@ -41,19 +54,18 @@ class Rep extends React.Component {
             </Right>
           </CardItem>
           <CardItem>
-            <Button iconLeft>
-              <Icon active name="call"/>
+            <Button iconLeft light onPress={() => this.externalPhone(rep.phone)}>
+              <Icon name="call"/>
               <Text>{rep.phone}</Text>
             </Button>
           </CardItem>
-        </Card>
-        {/* TODO: Twitter, website, contact ? */}
-        {/* TODO: Bio? */}
-        {/* <Card>
-          <CardItem content>
-            <Text>{rep.bio}</Text>
+          <CardItem>
+            <Button iconLeft light onPress={() => this.externalTwitter(rep.twitter_account)}>
+              <Icon name="logo-twitter"/>
+              <Text>Twitter</Text>
+            </Button>
           </CardItem>
-        </Card> */}
+        </Card>
         { this.displayArticles() }
       </ScrollView>
     );

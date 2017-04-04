@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { updateReps } from '../actions/reps';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import {
   Form,
   Item,
@@ -15,6 +15,7 @@ import {
   Right,
   Spinner,
   Toast,
+  Text,
 } from 'native-base';
 
 class AddressForm extends React.Component {
@@ -43,15 +44,14 @@ class AddressForm extends React.Component {
     let coord_params = ""
     if (typeof coords != "string")
       coord_params = `coords%5Blat%5D=${coords.lat}&coords%5Blng%5D=${coords.lng}`;
-    // fetch(`https://civis.herokuapp.com/api/reps?address=${address}&${coord_params}`)
-    fetch(`http:/localhost:3000/api/reps?address=${address}&${coord_params}`)
+    fetch(`https://civis.herokuapp.com/api/reps?address=${address}&${coord_params}`)
+    // fetch(`http:/localhost:3000/api/reps?address=${address}&${coord_params}`)
       .then( res => res.json() )
       .then( data => {
         this.props.dispatch(updateReps(data.reps));
         this.props.history.push('/reps')
       })
       .catch( err => {
-        // TODO: Feedback. Syntax Error?
         this.setState({ loading: false });
         const message = "Could not find address. Try again.";
         Toast.show({
@@ -98,7 +98,7 @@ class AddressForm extends React.Component {
               </Body>
             </CardItem>
             <CardItem>
-              <Button iconRight light onPress={ this.geolocate }>
+              <Button iconLeft light onPress={ this.geolocate }>
                 <Icon name='navigate' />
                 <Text>Find My Location</Text>
               </Button>
